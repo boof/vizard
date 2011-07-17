@@ -13,7 +13,7 @@
 
 			return vizard;
 		}
-		vizard = new Vizard(this, href, handler);
+		new Vizard(this, href, handler);
 
 		return this;
 	};
