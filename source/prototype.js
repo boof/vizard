@@ -29,6 +29,10 @@
 	};
 
 	fn.update       = function() {
+	fn.is = function(doctype) {
+		if (this.doctype === null) { return false; }
+		return this.doctype.publicId.indexOf(doctype) > -1;
+	};
 		var snapshot = this.makeSnapshot()
 		  , oldLines = difflib.stringAsLines(this.snapshot)
 		  , newLines = difflib.stringAsLines(snapshot)

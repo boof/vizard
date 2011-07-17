@@ -36,7 +36,6 @@ Vizard = function( display, href, handler ) {
 
 	display.data('vizard', vizard).one('load', function() {
 		vizard.document    = document;
-		vizard.doctype     = document.doctype;
 		vizard.styleSheets = document.styleSheets;
 
 		w.resize( refit ); // reset height of display if window resizes
@@ -52,6 +51,7 @@ Vizard = function( display, href, handler ) {
 		dataType: 'text',
 		success: function(source, status, jqXHR) {
 			vizard.contentType = jqXHR.getResponseHeader('Content-Type');
+			vizard.doctype     = Vizard.doctype(source);
 			vizard.setState( Vizard.LOADED );
 
 			vizard.source = vizard.inputFilter(source);
