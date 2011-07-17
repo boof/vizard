@@ -19,6 +19,55 @@
 		return jQ;
 	};
 
+	fn.control = function() {
+		var container, behaviours, behaviour, handlers, handler, $$;
+		this.elements = this.elements || this.jQuery();
+
+		for (var selector in this.handler) {
+			behaviour = this.handler[selector];
+
+			this.elements = this.jQuery( selector )
+
+			// only select elements in given container, ...
+			.filter(function() {
+				var select = false, element = this;
+
+				jQuery.each(arguments, function() {
+					container = $(this);
+
+					// RADAR Does .is() mean this should be selected?
+					select = container.is(element);
+					select || ( select = container.has(element).length > 0 );
+
+					return !select;
+				});
+
+				return select;
+			})
+			// ... merge behaviours ...
+			.each(function() {
+				$$ = $(this);
+				behaviours = $$.data('behaviours') || {};
+
+				for (var eventType in behaviour) {
+					handlers = behaviours[eventType] || [];
+					handler  = behaviour[eventType];
+
+					if (handlers.indexOf(handler) > -1) { continue; }
+
+					handlers.push(handler);
+					behaviours[eventType] = handlers;
+				}
+
+				$$.data('behaviours', behaviours);
+			})
+			// ... and add already found elements
+			.add(this.elements);
+		}
+
+		this.elements.control();
+	};
+
 	fn.makeSnapshot = function() {
 		return this.document.documentElement.innerHTML;
 	};
@@ -28,11 +77,24 @@
 		this.isModified = false;
 	};
 
-	fn.update       = function() {
 	fn.is = function(doctype) {
 		if (this.doctype === null) { return false; }
 		return this.doctype.publicId.indexOf(doctype) > -1;
 	};
+
+	fn.serialize = function() {
+		var source;
+
+		if ( this.is('XHTML') ) {
+			source = $(this.document).xhtml();
+		} else {
+			source = $(this.document.documentElement).html();
+		}
+
+		return this.doctype.toString() + "\n" + this.outputFilter( source );
+	};
+
+	fn.update = function() {
 		var snapshot = this.makeSnapshot()
 		  , oldLines = difflib.stringAsLines(this.snapshot)
 		  , newLines = difflib.stringAsLines(snapshot)
@@ -55,12 +117,12 @@
 
 	// States
 	Vizard.INIT        = 'uninitialized';
-	fn.readyState = Vizard.INIT;
-
 	Vizard.LOADING     = 'loading';
 	Vizard.LOADED      = 'loaded';
 	Vizard.INTERACTIVE = 'interactive';
 	Vizard.COMPLETE    = 'complete';
+
+	fn.readyState = Vizard.INIT;
 
 	fn.setState = function( state ) {
 		this.readyState = state;
