@@ -1,4 +1,5 @@
-uglify_bin   = '~/node_modules/uglify-js/bin/uglifyjs'
+uglify_bin   = `which uglifyjs`.chomp
+uglify_bin   = '~/node_modules/uglify-js/bin/uglifyjs' if uglify_bin.empty?
 
 root         = File.expand_path '..', __FILE__
 version      = File.read File.join(root, 'VERSION').chomp
