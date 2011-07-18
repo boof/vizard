@@ -99,13 +99,12 @@
 		  , fallback  = filter.DOCTYPE.fallback
 		  , warning   = filter.DOCTYPE.warning;
 
-		if ( !doctype ) {
-			if ( fallback ) {
-				doctype = fallback;
-				source  = doctype.toString() + "\n" + source;
-			} else if ( warning ) {
-				alert( warning );
-			}
+		if ( !doctype && fallback ) {
+			doctype = doctypes[ fallback ];
+			source  = doctype.toString() + "\n" + source;
+		}
+		if ( !doctype && warning ) {
+			alert( warning );
 		}
 		this.doctype = doctype;
 
@@ -117,7 +116,7 @@
 
 	filter.DOCTYPE = {
 		doctypes: doctypes,
-		fallback: doctypes['HTML 4.01 Transitional'],
+		fallback: 'HTML 4.01 Transitional',
 		warning:  'Documents without doctype cause unpredictable rendering issues.'
 	};
 	filter.assignDOCTYPE = assignDOCTYPE;
