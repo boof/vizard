@@ -1,13 +1,10 @@
-var Vizard = (function(jQuery) {
-
-var Vizard
-  , $        = jQuery.sub();
+var Vizard = (function($) {
 
 $.window   = $( window );
 $.document = $( document );
 $.body     = $('body');
 
-Vizard = function( display, href, handler ) {
+function Vizard( display, href, handler ) {
 	var vizard = this
 	  , document;
 
@@ -70,4 +67,4 @@ Vizard.jQuery = $;
 
 return Vizard;
 
-})(jQuery);
+})( jQuery.sub() );
