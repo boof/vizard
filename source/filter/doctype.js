@@ -99,11 +99,13 @@
 		  , fallback  = filter.DOCTYPE.fallback
 		  , warning   = filter.DOCTYPE.warning;
 
-		if ( !doctype && fallback ) {
-			doctype = fallback;
-			source  = doctype.toString() + "\n" + source;
-		} else if ( warning ) {
-			alert( warning );
+		if ( !doctype ) {
+			if ( fallback ) {
+				doctype = fallback;
+				source  = doctype.toString() + "\n" + source;
+			} else if ( warning ) {
+				alert( warning );
+			}
 		}
 		this.doctype = doctype;
 
