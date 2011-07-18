@@ -2,7 +2,7 @@
 
 	Vizard.location = {
 		host: location.host,
-		hostname: locatuon.hostname,
+		hostname: location.hostname,
 		href: location.href,
 		pathname: location.pathname,
 		port: location.port,
