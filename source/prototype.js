@@ -91,7 +91,7 @@
 			source = $(this.document.documentElement).html();
 		}
 
-		return this.doctype.toString() + "\n" + this.outputFilter( source );
+		return this.outputFilter( source );
 	};
 
 	fn.update = function() {
