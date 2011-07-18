@@ -44,6 +44,24 @@ Example
         }
     });
 
+Instance Attributes
+-------------------
+
+* controls
+* document
+* doctype
+* display
+* handler
+* href
+* inputFilter
+* outputFilter
+
+Instance Methods
+----------------
+
+* setState
+* ...
+
 Requirements
 ------------
 
