@@ -13,59 +13,7 @@
 	};
 
 	fn.jQuery = function( selector ) {
-		var jQ = $( selector, this.document );
-		jQ.vizard = this;
-
-		return jQ;
-	};
-
-	fn.control = function() {
-		var container, behaviours, behaviour, handlers, handler, $$;
-		this.elements = this.elements || this.jQuery();
-
-		for (var selector in this.handler) {
-			behaviour = this.handler[selector];
-
-			this.elements = this.jQuery( selector )
-
-			// only select elements in given container, ...
-			.filter(function() {
-				var select = false, element = this;
-
-				jQuery.each(arguments, function() {
-					container = $(this);
-
-					// RADAR Does .is() mean this should be selected?
-					select = container.is(element);
-					select || ( select = container.has(element).length > 0 );
-
-					return !select;
-				});
-
-				return select;
-			})
-			// ... merge behaviours ...
-			.each(function() {
-				$$ = $(this);
-				behaviours = $$.data('behaviours') || {};
-
-				for (var eventType in behaviour) {
-					handlers = behaviours[eventType] || [];
-					handler  = behaviour[eventType];
-
-					if (handlers.indexOf(handler) > -1) { continue; }
-
-					handlers.push(handler);
-					behaviours[eventType] = handlers;
-				}
-
-				$$.data('behaviours', behaviours);
-			})
-			// ... and add already found elements
-			.add(this.elements);
-		}
-
-		this.elements.control();
+		return $( selector, this.document );
 	};
 
 	fn.makeSnapshot = function() {
