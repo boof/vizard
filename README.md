@@ -14,10 +14,16 @@ Example
     $('#iframe')
     .bind('onreadystatechange.Vizard', function(e, state, vizard) {
         switch ( state ) {
+
+            case Vizard.LOADING: // AJAX request sent, time to add filters!
+                vizard.inputFilter.push( Vizard.Filter.includeSSI );
+                break;
+
             case Vizard.INTERACTIVE: // target document is available
                 // adds a class to body element in target document
                 vizard.jQuery('body').addClass('some-class');
                 break;
+
             case Vizard.COMPLETE: // core initialization completed
                 $('#spinner').hide();
                 // append generated controls to an overlay
