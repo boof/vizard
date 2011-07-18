@@ -1,8 +1,8 @@
 var Vizard = (function(jQuery) {
 
 var Vizard
-  , $ = jQuery.sub()
-  , w = $( window );
+  , $        = jQuery.sub();
+
 $.window   = $( window );
 $.document = $( document );
 $.body     = $('body');
@@ -26,20 +26,6 @@ Vizard = function( display, href, handler ) {
 	);
 
 	vizard.outputFilter = new Vizard.Filter.Chain();
-
-	function refit() {
-		var height;
-
-		// in IE scrollbars appear when reducing height even when the
-		// document itself does not require that much...
-		display.attr('style', 'display: block;');
-
-		height = $( document ).height();
-		height = w.height() > height ? w.height() : height;
-
-		display.css('height', height);
-	}
-	vizard.refit = refit;
 	vizard.outputFilter.push(
 		Vizard.Filter.enableSCRIPT,
 		Vizard.Filter.removeBASE,
@@ -50,7 +36,6 @@ Vizard = function( display, href, handler ) {
 		vizard.document    = document;
 		vizard.styleSheets = document.styleSheets;
 
-		w.resize( refit ); // reset height of display if window resizes
 		display.show();
 		vizard.setState( Vizard.INTERACTIVE );
 
