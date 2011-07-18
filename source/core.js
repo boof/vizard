@@ -3,6 +3,9 @@ var Vizard = (function(jQuery) {
 var Vizard
   , $ = jQuery.sub()
   , w = $( window );
+$.window   = $( window );
+$.document = $( document );
+$.body     = $('body');
 
 Vizard = function( display, href, handler ) {
 	var vizard = this
