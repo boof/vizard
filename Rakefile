@@ -3,7 +3,7 @@ uglify_bin   = '~/node_modules/uglify-js/bin/uglifyjs' if uglify_bin.empty?
 
 root         = File.expand_path '..', __FILE__
 version      = File.read File.join(root, 'VERSION').chomp
-sources      = %w[ core tools filter/base_tag filter/noscript prototype jquery ]
+sources      = %w[ core tools filter/doctype filter/base_tag filter/noscript prototype jquery ]
 vendored     = %W[ difflib xhtml-0.3 ]
 uncompressed = File.join root, 'public', 'js', "vizard-#{ version }.js"
 compressed   = File.join root, 'public', 'js', "vizard-#{ version }.min.js"

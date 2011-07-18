@@ -16,10 +16,13 @@ Vizard = function( display, href, handler ) {
 	vizard.handler  = handler;
 
 	vizard.inputFilter  = new Vizard.Filter.Chain();
-	vizard.inputFilter.push( Vizard.Filter.insertBASE, Vizard.Filter.disableSCRIPT );
+	vizard.inputFilter.push(
+		Vizard.Filter.assignDOCTYPE,
+		Vizard.Filter.insertBASE,
+		Vizard.Filter.disableSCRIPT
+	);
 
 	vizard.outputFilter = new Vizard.Filter.Chain();
-	vizard.outputFilter.push( Vizard.Filter.removeBASE, Vizard.Filter.enableSCRIPT );
 
 	function refit() {
 		var height;
@@ -34,6 +37,11 @@ Vizard = function( display, href, handler ) {
 		display.css('height', height);
 	}
 	vizard.refit = refit;
+	vizard.outputFilter.push(
+		Vizard.Filter.enableSCRIPT,
+		Vizard.Filter.removeBASE,
+		Vizard.Filter.writeDOCTYPE
+	);
 
 	display.data('vizard', vizard).one('load', function() {
 		vizard.document    = document;
@@ -52,7 +60,6 @@ Vizard = function( display, href, handler ) {
 		dataType: 'text',
 		success: function(source, status, jqXHR) {
 			vizard.contentType = jqXHR.getResponseHeader('Content-Type');
-			vizard.doctype     = Vizard.doctype(source);
 			vizard.source      = vizard.inputFilter(source);
 			vizard.setState( Vizard.LOADED );
 
