@@ -1,8 +1,92 @@
 <!DOCTYPE html>
 
 <meta charset="utf-8" />
-<title>Example</title>
+<title>Showcase</title>
+<style>
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+</style>
 
+<h1>Showcase</h1>
 <p>run `rake minify` to build vizard minified</p>
+
+<script type="text/javascript" src="/js/jquery-1.6.2.min.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+	window.bootVizard = function() {
+		var V
+		  , display = $('<iframe id="display" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" frameborder="0">')
+		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">');
+		
+		display.appendTo('body')
+		.bind('onreadystatechange.Vizard', function(e, state, vizard) {
+			V = vizard;
+			switch (state) {
+				case Vizard.LOADING:
+					vizard.inputFilter.push(function(source) {
+						return source.replace(/<p>.*<\/p>/, '<p>I has been filtered!</p>');
+					});
+					break;
+				case Vizard.COMPLETE:
+					$('#spinner').hide();
+					Vizard.entitle('Loaded ' + vizard.jQuery('title').text());
+
+					vizard.controls.sortBySize();
+					overlay.append(vizard.controls).appendTo('body');
+					break;
+			}
+		})
+		.vizard( window.location.href, {
+			'body': {
+				click: function() { console.log( V.serialize() ); }
+			},
+			'p': {
+				click: function() { alert('You clicked?'); },
+				title: 'Click here...'
+			}
+		});
+	};
+</script>
 
 <script src="/js/boot-0.6.1.min.js" type="text/javascript" charset="utf-8"></script>

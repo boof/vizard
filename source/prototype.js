@@ -12,6 +12,19 @@
 		Vizard.entitle( title, this.document );
 	};
 
+	var addRule;
+	if ($.browser.msie) {
+		addRule = function(selector, rule, index) {
+			return this.addRule(selector, rule, index);
+		};
+	} else {
+		addRule = function(selector, rule, index) {
+			if (typeof(index) != 'number') index = 0;
+			return this.insertRule(selector + ' {' + rule + '}', index);
+		};
+	}
+	fn.addRule = function() { addRule.apply(this.styleSheet, arguments); };
+
 	fn.jQuery = function( selector ) {
 		return $( selector, this.document );
 	};

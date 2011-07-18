@@ -2,13 +2,14 @@ var Vizard = (function($) {
 
 $.window   = $( window );
 $.document = $( document );
-$.body     = $('body');
 
 function Vizard( display, href, handler ) {
-	var vizard = this
+	var vizard  = this
+	  , context = window.document
 	  , document;
 
 	display  = $( display );
+	
 	document = display.contents().get(0);
 
 	vizard.display  = display;
@@ -38,8 +39,24 @@ function Vizard( display, href, handler ) {
 
 		vizard.control( document.body );
 		vizard.reset();
+
+		Vizard.jQuery.window.resize();
+
 		vizard.setState( Vizard.COMPLETE );
 	});
+
+	var styleSheets = context.styleSheets
+	  , styleSheet  = false;
+
+	$('<style>').attr({ title: 'vizard', type: 'text/css' }).appendTo('head');
+
+	for (var i = 0, ii = styleSheets.length; !styleSheet || i < ii; i++) {
+		if ( styleSheets[i].title == 'vizard' ) styleSheet = styleSheets[i];
+	}
+	vizard.styleSheet = styleSheet;
+	vizard.addRule('body', 'overflow: hidden;');
+	vizard.addRule('#spinner', 'position: absolute; top: 50%; right: 50%; margin: -16px;');
+	vizard.addRule('.control', 'display: block; position: absolute;');
 
 	$.ajax( href, {
 		dataType: 'text',
@@ -53,6 +70,7 @@ function Vizard( display, href, handler ) {
 			document.close();
 		}
 	});
+
 	vizard.setState( Vizard.LOADING );
 
 	return vizard;

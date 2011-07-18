@@ -1,5 +1,7 @@
 (function(Vizard) {
-	
+
+	var $ = Vizard.jQuery;
+
 	Vizard.fn.control = function() {
 		var container, behaviours, behaviour, handlers, handler, $$;
 		this.elements = this.elements || this.jQuery();
@@ -71,9 +73,9 @@
 		var controls = vizard.controls;
 
 		this.each(function() {
-			var control    = $('<A>')
+			var control    = $('<a class="control">')
 			  , $$         = $( this )
-			  , behaviours = element.data('behaviours');
+			  , behaviours = $$.data('behaviours');
 
 			control.data('target', this);
 			$$.data('controller', control);
