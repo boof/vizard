@@ -54,9 +54,9 @@ function Vizard( display, href, handler ) {
 		if ( styleSheets[i].title == 'vizard' ) styleSheet = styleSheets[i];
 	}
 	vizard.styleSheet = styleSheet;
-	vizard.addRule('body', 'overflow: hidden;');
-	vizard.addRule('#spinner', 'position: absolute; top: 50%; right: 50%; margin: -16px;');
-	vizard.addRule('.control', 'display: block; position: absolute;');
+	vizard.addStyle('body', 'overflow: hidden;');
+	vizard.addStyle('#spinner', 'position: absolute; top: 50%; right: 50%; margin: -16px;');
+	vizard.addStyle('.control', 'display: block; position: absolute;');
 
 	$.ajax( href, {
 		dataType: 'text',
