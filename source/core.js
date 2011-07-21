@@ -14,6 +14,7 @@ function Vizard( display, href, handler ) {
 
 	vizard.display  = display;
 	vizard.href     = href;
+	vizard.location = new Vizard.Location( href );
 	vizard.handler  = handler;
 
 	vizard.inputFilter  = new Vizard.Filter.Chain();

@@ -15,8 +15,17 @@ Example
     .bind('onreadystatechange.Vizard', function(e, state, vizard) {
         switch ( state ) {
 
-            case Vizard.LOADING: // AJAX request sent, time to add filters!
-                vizard.inputFilter.push( Vizard.Filter.includeSSI );
+            case Vizard.LOADING:
+                // AJAX request sent, time to add filters!
+                new Vizard.Filter.SSI({
+                    blacklist: [/etracker.include$/],
+                    cache: true,
+                    location: vizard.location,
+                    writeback: function(url, contents) {
+                        // ...
+                    }
+                }).bind(vizard);
+
                 break;
 
             case Vizard.INTERACTIVE: // target document is available
