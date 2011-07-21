@@ -12,4 +12,4 @@
 
 		return this;
 	};
-})(jQuery.fn);
+})(Vizard.jQuery.fn);
