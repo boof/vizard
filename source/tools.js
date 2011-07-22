@@ -1,19 +1,23 @@
 (function(Vizard) {
 
 	function Parameters(search) {
-		var pairs = search.slice(1).split('&');
-		var param, value;
+		var parameterObj = this
+		  , pairs, pair
+		  , param, value;
 
-		if (search === '') { return this; }
+		if (search === '') { return parameterObj; }
+
+		pairs = search.slice(1).split('&');
 
 		for (var i = 0, ii = pairs.length; i < ii; i++) {
-			param = pairs[i].split('=', 1);
-			value = pairs[i].split('=').slice(1).join('=');
+			pair  = pairs[i].split('=');
+			param = decodeURIComponent( pair[0] );
+			value = decodeURIComponent( pair.slice(1).join('=') );
 
-			this[ decodeURIComponent( param ) ] = decodeURIComponent( value );
+			parameterObj[ param ] = value;
 		}
 
-		return this;
+		return parameterObj;
 	}
 	Parameters.prototype.toString = function() {
 		var pairs = [], pair;
@@ -32,22 +36,22 @@
 		return '?' + pairs.join('&');
 	};
 	function Location(href) {
-		var a = document.createElement('a');
+		var location
+		  , a = document.createElement('a');
+
 		a.href = href;
 
-		this.host = a.host;
-		this.hostname = a.hostname;
-		this.href = a.href;
-		this.pathname = a.pathname;
-		this.port = a.port;
-		this.protocol = a.protocol;
-		this.search = a.search;
+		location.parameters = new Parameters(a.search);
+		location.host       = a.host;
+		location.hostname   = a.hostname;
+		location.href       = a.href;
+		location.pathname   = a.pathname;
+		location.port       = a.port;
+		location.protocol   = a.protocol;
+		location.search     = a.search;
+		location.__proto__  = window.location.__proto__;
 
-		this.parameters = new Parameters(search);
-
-		__proto__: window.location.__proto__;
-
-		return this;
+		return location;
 	}
 
 	function FilterChain() {
