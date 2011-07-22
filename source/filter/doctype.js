@@ -92,7 +92,7 @@
 		}
 
 		return null;
-	};
+	}
 
 	function assignDOCTYPE( source ) {
 		var doctype   = find( source.split( "\n", 1 )[0] )
@@ -109,7 +109,7 @@
 		this.doctype = doctype;
 
 		return source;
-	};
+	}
 	function writeDOCTYPE( source ) {
 		return this.doctype.toString() + "\n" + source;
 	}

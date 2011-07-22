@@ -15,7 +15,7 @@
 		broken[1] = build( this ) + broken[1];
 
 		return broken.join('</title>');
-	};
+	}
 	function removeBASE( source ) {
 		return source.replace( build( this ), '' );
 	}

@@ -75,7 +75,7 @@ function Vizard( display, href, handler ) {
 	vizard.setState( Vizard.LOADING );
 
 	return vizard;
-};
+}
 
 $.ajaxSetup({
 	cache: false,
