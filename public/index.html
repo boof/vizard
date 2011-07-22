@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 
 <meta charset="utf-8" />
-<title>Showcase</title>
+<title>Vizard - Example</title>
 <link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" charset="utf-8"/>
 <link rel="stylesheet" href="/css/example.css" type="text/css" media="screen" charset="utf-8"/>
 
-<h1>Showcase</h1>
-<p>run `rake minify` to build vizard minified</p>
+<h1>Vizard - Example (only working in Chrome)</h1>
+<p>Vizard is loading...</p>
+<!--# include virtual="/ssi.include" -->
 
 <script type="text/javascript" charset="utf-8">
 	window.bootVizard = function() {
 		var V
 		  , display = $('<iframe id="display" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" frameborder="0">')
 		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">');
-		
+
 		display.appendTo('body')
 		.bind('onreadystatechange.Vizard', function(e, state, vizard) {
 			V = vizard;
 			switch (state) {
 				case Vizard.LOADING:
 					vizard.inputFilter.push(function(source) {
-						return source.replace(/<p>.*<\/p>/, '<p>I can haz been filtered!</p>');
+						return source.replace(/<p>.*<\/p>/, '<p>Vizard is now ready.</p>');
 					});
+					Vizard.Filter.SSI().bind(vizard);
 					break;
 				case Vizard.COMPLETE:
 					vizard.controls.sortBySize();
@@ -29,7 +31,7 @@
 
 					$('#spinner').hide();
 
-					Vizard.entitle( 'Loaded ' + vizard.jQuery('title').text() );
+					Vizard.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
 					break;
 			}
 		})

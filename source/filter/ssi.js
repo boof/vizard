@@ -17,9 +17,10 @@
 	$ = Vizard.jQuery,
 
 	defaults = {
-		writeback: false,
 		blacklist: false,
-		cache: true
+		cache: true,
+		location: window.location,
+		writeback: false
 	};
 
 	function Absolute(agent, location) {

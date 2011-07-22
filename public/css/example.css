@@ -1,7 +1,23 @@
 body {
 	margin: 0 auto;
 	width: 960px;
+	font-size: 100.1%;
+	background-color: #000;
 }
 h1 {
 	font-size: 1.6em;
+	color: #909090;
+}
+p, h1, h2, h3, h4, h5, h6, a, span, div {
+	font-family: "Malabar LT W01 Regular", Georgia, serif;
+}
+p, a {
+	font-size: 0.813em;
+	color: #909090;
+}
+p>a {
+	font-size: 1em;
+}
+p {
+	line-height: 1.5em;
 }
