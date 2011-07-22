@@ -19,7 +19,7 @@
 	} else {
 		fn.addStyle = function(selector, rule, index) {
 			if (typeof(index) != 'number') index = 0;
-			return this.styleSheet.insertRule(selector + ' {' + rule + '}', index);
+			return this.styleSheet.insertRule(selector.concat(' {', rule, '}'), index);
 		};
 	}
 
