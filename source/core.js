@@ -46,15 +46,9 @@ function Vizard( display, href, handler ) {
 		vizard.setState( Vizard.COMPLETE );
 	});
 
-	var styleSheets = context.styleSheets
-	  , styleSheet  = false;
+	var sheet = $('<style type="text/css">').appendTo('head').get(0).sheet;
+	vizard.styleSheet = sheet;
 
-	$('<style>').attr({ title: 'vizard', type: 'text/css' }).appendTo('head');
-
-	for (var i = 0, ii = styleSheets.length; !styleSheet || i < ii; i++) {
-		if ( styleSheets[i].title == 'vizard' ) styleSheet = styleSheets[i];
-	}
-	vizard.styleSheet = styleSheet;
 	vizard.addStyle('body', 'overflow: hidden;');
 	vizard.addStyle('#spinner', 'position: absolute; top: 50%; right: 50%; margin: -16px;');
 	vizard.addStyle('.control', 'display: block; position: absolute;');
