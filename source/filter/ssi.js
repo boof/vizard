@@ -8,7 +8,7 @@
  *   }
  * }).bind( vizard );
  */
-(function(filter) {
+(function(Vizard) {
 
 	var includeExpr  = /<!--# include .*?-->/g
 	  , extroComment = '<!--# end-of include="%s" -->'
@@ -24,27 +24,34 @@
 
 	function Absolute(agent, location) {
 		var prefix = location.protocol + '//' + location.host
-		  , href   = location.href;
+		  , href   = location.href
+		  , self   = this;
 
-		this.absolute = function(url) {
+		self.absolute = function(url) {
 			return url.substr(0, 1) == '/' ?
 				prefix + url :
 				href.replace(/[^\/]*$/, url);
 		};
 
-		this.agent = agent;
+		self.agent = agent;
+
+		return self;
 	}
 	$.extend(Absolute.prototype, {
 		get: function(url) {
-			return agent.get( this.absolute(url) );
+			return this.agent.get( this.absolute(url) );
 		},
 		set: function(url, contents) {
-			return agent.set( this.absolute(url), contents );
+			return this.agent.set( this.absolute(url), contents );
 		}
 	});
 	function Blacklist(agent, expressions) {
-		this.expressions = expressions;
-		this.agent       = agent;
+		var blacklist = this;
+
+		blacklist.expressions = expressions;
+		blacklist.agent       = agent;
+
+		return blacklist;
 	}
 	$.extend(Blacklist.prototype, {
 		rejected: function(url) {
@@ -57,21 +64,25 @@
 			return result;
 		},
 		get: function(url) {
-			return this.rejected(url) ? null : agent.get( url );
+			return this.rejected(url) ? null : this.agent.get( url );
 		},
 		set: function(url, contents) {
-			return this.rejected(url) ? null : agent.set( url, contents );
+			return this.rejected(url) ? null : this.agent.set( url, contents );
 		}
 	});
 	function Cache(agent) {
-		this.storage = {};
-		this.agent   = agent;
+		var cache = this;
+
+		cache.storage = {};
+		cache.agent   = agent;
+
+		return cache;
 	}
 	$.extend(Cache.prototype, {
 		get: function(url) {
 			var contents = this.storage[url];
 			if ( contents === undefined ) {
-				contents = this.storage[url] = agent.get(url);
+				contents = this.storage[url] = this.agent.get(url);
 			}
 			return contents;
 		},
@@ -79,12 +90,14 @@
 			if ( this.storage[url] === contents ) {
 				return contents;
 			} else {
-				return this.storage[url] = agent.set(url, contents);
+				return this.storage[url] = this.agent.set(url, contents);
 			}
 		}
 	});
 	function Agent(agent) {
-		this.agent = agent;
+		var self = this;
+		self.agent = agent;
+		return self;
 	}
 	$.extend(Agent.prototype, {
 		get: function(url) {
@@ -98,7 +111,7 @@
 			return value;
 		},
 		set: function(url, contents) {
-			agent.set(url, contents);
+			this.agent.set(url, contents);
 		}
 	});
 
@@ -107,7 +120,7 @@
 	}
 
 	function SSI( opts ) {
-		var agent;
+		var agent, filter;
 
 		opts = $.extend( defaults, opts );
 
@@ -116,10 +129,19 @@
 		if (opts.blacklist) { agent = new Blacklist(agent, opts.blacklist); }
 		agent = new Absolute(agent, opts.location);
 
+		filter = {
+			bind: function(vizard) {
+				vizard.inputFilter.unshift(includeSSI);
+				vizard.outputFilter.push(excludeSSI);
+			},
+			includeSSi: includeSSI,
+			excludeSSI: excludeSSI
+		};
+
 		if ( typeof(opts.writeback) == 'function' ) {
-			this.set = opts.writeback;
+			filter.set = opts.writeback;
 		} else {
-			function() {};
+			function nop() {};
 		}
 
 		function includeSSI( source ) {
@@ -180,14 +202,9 @@
 			return source;
 		}
 
-		return {
-			bind: function(vizard) {
-				vizard.inputFilter.push(includeSSI);
-				vizard.outputFilter.push(excludeSSI);
-			}
-		};
+		return filter;
 	};
 
-	filter.SSI = SSI;
+	Vizard.Filter.SSI = SSI;
 
-})(Vizard.Filter);
+})(Vizard);
