@@ -69,11 +69,12 @@ table {
 					});
 					break;
 				case Vizard.COMPLETE:
-					$('#spinner').hide();
-					Vizard.entitle('Loaded ' + vizard.jQuery('title').text());
-
 					vizard.controls.sortBySize();
 					overlay.append(vizard.controls).appendTo('body');
+
+					$('#spinner').hide();
+
+					Vizard.entitle( 'Loaded ' + vizard.jQuery('title').text() );
 					break;
 			}
 		})
@@ -89,4 +90,4 @@ table {
 	};
 </script>
 
-<script src="/js/boot-0.6.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/boot-0.7.0.min.js" type="text/javascript" charset="utf-8"></script>
