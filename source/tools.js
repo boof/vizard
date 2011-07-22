@@ -36,7 +36,7 @@
 		return '?' + pairs.join('&');
 	};
 	function Location(href) {
-		var location
+		var location = this
 		  , a = document.createElement('a');
 
 		a.href = href;
