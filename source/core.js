@@ -13,8 +13,8 @@ function Vizard( display, href, handler ) {
 	document = display.contents().get(0);
 
 	vizard.display  = display;
-	vizard.href     = href;
 	vizard.location = new Vizard.Location( href );
+	vizard.href     = vizard.location.href;
 	vizard.handler  = handler;
 
 	vizard.inputFilter  = new Vizard.Filter.Chain();
