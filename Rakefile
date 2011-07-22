@@ -3,7 +3,7 @@ uglify_bin   = '~/node_modules/uglify-js/bin/uglifyjs' if uglify_bin.empty?
 
 root         = File.expand_path '..', __FILE__
 version      = File.read File.join(root, 'VERSION').chomp
-sources      = %w[ core tools filter/doctype filter/base_tag filter/noscript prototype controls jquery ]
+sources      = %w[ core tools prototype controls filter/doctype filter/base_tag filter/noscript jquery ]
 vendored     = %W[ difflib xhtml-0.3 ]
 uncompressed = File.join root, 'public', 'js', "vizard-#{ version }.js"
 compressed   = File.join root, 'public', 'js', "vizard-#{ version }.min.js"
@@ -20,12 +20,7 @@ task :concat do
     end
   end
 end
-task :boot do
-  File.open File.join(root, 'public', 'js', "boot-#{ version }.min.js"), 'w' do |file|
-    file << `#{ uglify_bin } -nc #{ File.join root, 'source', 'boot.js' }`
-  end
-end
-task :minify => [ :boot, :concat ] do
+task :minify => [ :concat ] do
   File.open compressed, 'w' do |file|
     file << `#{ uglify_bin } -nc #{ uncompressed }`
   end
