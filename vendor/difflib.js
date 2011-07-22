@@ -52,12 +52,13 @@ difflib = {
 	
 	// iteration-based reduce implementation
 	__reduce: function (func, list, initial) {
-		if (initial != null) {
-			var value = initial;
-			var idx = 0;
+		var value, idx;
+		if (initial !== null) {
+			value = initial;
+			idx = 0;
 		} else if (list) {
-			var value = list[0];
-			var idx = 1;
+			value = list[0];
+			idx = 1;
 		} else {
 			return null;
 		}
@@ -100,28 +101,29 @@ difflib = {
 		this.set_seqs = function (a, b) {
 			this.set_seq1(a);
 			this.set_seq2(b);
-		}
+		};
 		
 		this.set_seq1 = function (a) {
 			if (a == this.a) return;
 			this.a = a;
 			this.matching_blocks = this.opcodes = null;
-		}
+		};
 		
 		this.set_seq2 = function (b) {
 			if (b == this.b) return;
 			this.b = b;
 			this.matching_blocks = this.opcodes = this.fullbcount = null;
 			this.__chain_b();
-		}
+		};
 		
 		this.__chain_b = function () {
 			var b = this.b;
 			var n = b.length;
 			var b2j = this.b2j = {};
 			var populardict = {};
+			var elt;
 			for (var i = 0; i < b.length; i++) {
-				var elt = b[i];
+				elt = b[i];
 				if (elt in b2j) {
 					var indices = b2j[elt];
 					if (n >= 200 && indices.length * 100 > n) {
@@ -135,19 +137,19 @@ difflib = {
 				}
 			}
 	
-			for (var elt in populardict)
+			for (elt in populardict)
 				delete b2j[elt];
 			
 			var isjunk = this.isjunk;
 			var junkdict = {};
 			if (isjunk) {
-				for (var elt in populardict) {
+				for (elt in populardict) {
 					if (isjunk(elt)) {
 						junkdict[elt] = 1;
 						delete populardict[elt];
 					}
 				}
-				for (var elt in b2j) {
+				for (elt in b2j) {
 					if (isjunk(elt)) {
 						junkdict[elt] = 1;
 						delete b2j[elt];
@@ -157,7 +159,7 @@ difflib = {
 	
 			this.isbjunk = difflib.__isindict(junkdict);
 			this.isbpopular = difflib.__isindict(populardict);
-		}
+		};
 		
 		this.find_longest_match = function (alo, ahi, blo, bhi) {
 			var a = this.a;
@@ -212,7 +214,7 @@ difflib = {
 			}
 	
 			return [besti, bestj, bestsize];
-		}
+		};
 		
 		this.get_matching_blocks = function () {
 			if (this.matching_blocks != null) return this.matching_blocks;
@@ -266,7 +268,7 @@ difflib = {
 			non_adjacent.push([la, lb, 0]);
 			this.matching_blocks = non_adjacent;
 			return this.matching_blocks;
-		}
+		};
 		
 		this.get_opcodes = function () {
 			if (this.opcodes != null) return this.opcodes;
@@ -297,7 +299,7 @@ difflib = {
 			}
 			
 			return answer;
-		}
+		};
 		
 		// this is a generator function in the python lib, which of course is not supported in javascript
 		// the reimplementation builds up the grouped opcodes into a list in their entirety and returns that.
@@ -346,20 +348,20 @@ difflib = {
 			if (groups && groups[groups.length - 1][0] == 'equal') groups.pop();
 			
 			return groups;
-		}
+		};
 		
 		this.ratio = function () {
 			matches = difflib.__reduce(
 							function (sum, triple) { return sum + triple[triple.length - 1]; },
 							this.get_matching_blocks(), 0);
 			return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-		}
+		};
 		
 		this.quick_ratio = function () {
-			var fullbcount, elt;
+			var fullbcount, elt, i;
 			if (this.fullbcount == null) {
 				this.fullbcount = fullbcount = {};
-				for (var i = 0; i < this.b.length; i++) {
+				for (i = 0; i < this.b.length; i++) {
 					elt = this.b[i];
 					fullbcount[elt] = difflib.__dictget(fullbcount, elt, 0) + 1;
 				}
@@ -369,7 +371,7 @@ difflib = {
 			var avail = {};
 			var availhas = difflib.__isindict(avail);
 			var matches = numb = 0;
-			for (var i = 0; i < this.a.length; i++) {
+			for (i = 0; i < this.a.length; i++) {
 				elt = this.a[i];
 				if (availhas(elt)) {
 					numb = avail[elt];
@@ -381,16 +383,16 @@ difflib = {
 			}
 			
 			return difflib.__calculate_ratio(matches, this.a.length + this.b.length);
-		}
+		};
 		
 		this.real_quick_ratio = function () {
 			var la = this.a.length;
 			var lb = this.b.length;
 			return _calculate_ratio(Math.min(la, lb), la + lb);
-		}
+		};
 		
 		this.isjunk = isjunk ? isjunk : difflib.defaultJunkFunction;
 		this.a = this.b = null;
 		this.set_seqs(a, b);
 	}
-}
+};
