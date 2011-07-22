@@ -85,7 +85,7 @@
 
 	fn.setState = function( state ) {
 		this.readyState = state;
-		this.display.trigger('onreadystatechange.Vizard', [ state, this ]);
+		this.display.trigger('readystatechange.Vizard', [ state, this ]);
 	};
 
 	// ...

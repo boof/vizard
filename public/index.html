@@ -16,7 +16,7 @@
 		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">');
 
 		display.appendTo('body')
-		.bind('onreadystatechange.Vizard', function(e, state, vizard) {
+		.bind('readystatechange.Vizard', function(e, state, vizard) {
 			V = vizard;
 			switch (state) {
 				case Vizard.LOADING:
