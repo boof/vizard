@@ -41,7 +41,7 @@ function Vizard( display, href, handler ) {
 		vizard.control( document.body );
 		vizard.reset();
 
-		Vizard.jQuery.window.resize();
+		$.window.resize();
 
 		vizard.setState( Vizard.COMPLETE );
 	});
