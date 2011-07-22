@@ -15,7 +15,7 @@
 			.filter(function() {
 				var select = false, element = this;
 
-				jQuery.each(arguments, function() {
+				$.each(arguments, function() {
 					container = $(this);
 
 					// RADAR Does .is() mean this should be selected?
@@ -55,7 +55,7 @@
 
 	fn.sort = function() {
 		var arrayLike = Array.prototype.sort.apply( this, arguments )
-		  , array     = jQuery.makeArray( array );
+		  , array     = $.makeArray( array );
 
 		return this.pushStack( array );
 	};
