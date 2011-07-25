@@ -4,9 +4,20 @@ Vizard
 Vizard is a JavaScript framework to create semi-WYSIWYG editors for (X)HTML.
 
 It does so by loading the target document into an IFRAME and generating
-control elements for elements that can be manipulated.
+"control"-elements for elements that can be modified.
 These elements are defined by selectors, mapping to multiple event handlers
-bound to their controls.
+(see example).
+
+Bootstrapping Methods
+---------------------
+
+* Scriptlet
+* HTML
+
+Issues
+------
+Example only tested in Chrome. Strange jQuery error in  Firefox.
+Opera and Internet Explorer 9 are untested.
 
 Example
 -------
@@ -73,6 +84,10 @@ Instance Methods
 
 Requirements
 ------------
+jQuery 1.6.2
+
+Build Requirements
+------------------
 
 * rake
 * uglify-js
