@@ -50,7 +50,6 @@ function Vizard( display, href, handler ) {
 	vizard.styleSheet = sheet;
 
 	vizard.addStyle('body', 'overflow: hidden;');
-	vizard.addStyle('#spinner', 'position: absolute; top: 50%; right: 50%; margin: -16px;');
 	vizard.addStyle('.control', 'display: block; position: absolute;');
 
 	$.ajax( href, {
