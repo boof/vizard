@@ -10,10 +10,10 @@
 <!--# include virtual="/ssi.include" -->
 
 <script type="text/javascript" charset="utf-8">
-	window.bootVizard = function() {
+	window.addEventListener('load.vizard', function(e) {
 		var V
-		  , display = $('<iframe id="display" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" frameborder="0">')
-		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">');
+		  , display = $('<iframe id="display" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" frameborder="0">', document)
+		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">', document);
 
 		display.appendTo('body')
 		.bind('readystatechange.Vizard', function(e, state, vizard) {
@@ -45,6 +45,6 @@
 				title: 'Hello Sir.'
 			}
 		});
-	};
+	});
 </script>
 <script src="/js/example.js" type="text/javascript" charset="utf-8"></script>
