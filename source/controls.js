@@ -73,7 +73,7 @@
 		var controls = vizard.controls;
 
 		this.each(function() {
-			var control    = $('<a class="control">')
+			var control    = $('<a class="vizard-ui-control">')
 			  , $$         = $( this )
 			  , behaviours = $$.data('behaviours');
 

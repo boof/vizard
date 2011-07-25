@@ -87,6 +87,25 @@
 		Vizard.jQuery( 'title', ownerDocument ).html( title );
 	}
 
+	var sheet = $('<style type="text/css">').appendTo('head').get(0).sheet
+	  , addStyle;
+
+	if ($.browser.msie) {
+		addStyle = function(selector, rule, index) {
+			return sheet.addRule(selector, rule, index);
+		};
+	} else {
+		addStyle = function(selector, rule, index) {
+			if (typeof(index) != 'number') index = 0;
+			return sheet.insertRule(selector.concat(' {', rule, '}'), index);
+		};
+	}
+
+	addStyle('.vizard-ui-control', 'display: block; position: absolute;');
+	addStyle('.vizard-ui-display, vizard-ui-overlay', 'position: absolute; top: 0; left: 0; width: 100%; min-height: 100%;');
+	addStyle('.vizard-ui-display', 'display: none; border: none;');
+	addStyle('.vizard-ui-overlay', 'background: url("data:image/gif,GIF89a%01%00%01%00%91%FF%00%FF%FF%FF%00%00%00%C0%C0%C0%00%00%00!%F9%04%01%00%00%02%00%2C%00%00%00%00%01%00%01%00%00%02%02T%01%00%3B") no-repeat;');
+
 	Vizard.Location = Location;
 	Vizard.Parameters = Parameters;
 
@@ -94,6 +113,8 @@
 	Vizard.Filter.Chain = FilterChain;
 
 	Vizard.UI = {};
+	Vizard.UI.styleSheet = sheet;
+	Vizard.UI.addStyle = addStyle;
 
 	Vizard.entitle = entitle;
 

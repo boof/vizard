@@ -3,17 +3,17 @@ uglify_bin   = '~/node_modules/uglify-js/bin/uglifyjs' if uglify_bin.empty?
 
 root         = File.expand_path '..', __FILE__
 version      = File.read File.join(root, 'VERSION').chomp
-sources      = %w[ core tools prototype controls filter/doctype filter/base_tag filter/noscript filter/ssi jquery ]
-vendored     = %W[ difflib xhtml-0.3 ]
+
+sources      = %w[ difflib xhtml-0.3 ].map { |basename| "../vendor/#{ basename }" }
+sources     += %w[ core tools prototype controls jquery ]
+sources     += %w[ doctype base_tag noscript ssi ].map { |basename| "filter/#{ basename }" }
+sources     += %w[ display overlay ].map { |basename| "ui/#{ basename }" }
+
 uncompressed = File.join root, 'public', 'js', "vizard-#{ version }.js"
 compressed   = File.join root, 'public', 'js', "vizard-#{ version }.min.js"
 
 task :concat do
   File.open uncompressed, 'w' do |file|
-    vendored.each do |path|
-      buffer = File.read File.join(root, 'vendor', "#{ path }.js")
-      file << buffer
-    end
     sources.each do |path|
       buffer = File.read File.join(root, 'source', "#{ path }.js")
       file << buffer

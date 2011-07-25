@@ -11,31 +11,36 @@
 
 <script type="text/javascript" charset="utf-8">
 	window.addEventListener('load.vizard', function(e) {
-		var V
-		  , display = $('<iframe id="display" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" frameborder="0">', document)
-		  , overlay = $('<div id="overlay" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;">', document);
+		var V, display;
 
-		display.appendTo('body')
-		.bind('readystatechange.Vizard', function(e, state, vizard) {
-			V = vizard;
+		Vizard.UI.addStyle('body', 'margin: 0;');
+
+		display = Vizard.UI.display('display', function(e, state, vizard) {
 			switch (state) {
 				case Vizard.LOADING:
+					V = vizard;
+
 					vizard.inputFilter.push(function(source) {
 						return source.replace(/<p>.*<\/p>/, '<p>Vizard is now ready.</p>');
 					});
+
 					Vizard.Filter.SSI().bind(vizard);
+
 					break;
+
 				case Vizard.COMPLETE:
 					vizard.controls.sortBySize();
-					overlay.append(vizard.controls).appendTo('body');
+					Vizard.UI.overlay('overlay', display).append(vizard.controls).appendTo('body');
 
 					$('#spinner').hide();
 
 					Vizard.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
 					break;
 			}
-		})
-		.vizard( window.location.href, {
+		}).appendTo('body');
+		
+
+		display.vizard( window.location.href, {
 			'body': {
 				click: function() { console.log( V.serialize() ); },
 				title: 'Write HTML to console.'

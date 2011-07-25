@@ -12,17 +12,6 @@
 		Vizard.entitle( title, this.document );
 	};
 
-	if ($.browser.msie) {
-		fn.addStyle = function(selector, rule, index) {
-			return this.styleSheet.addRule(selector, rule, index);
-		};
-	} else {
-		fn.addStyle = function(selector, rule, index) {
-			if (typeof(index) != 'number') index = 0;
-			return this.styleSheet.insertRule(selector.concat(' {', rule, '}'), index);
-		};
-	}
-
 	fn.jQuery = function( selector ) {
 		return $( selector, this.document );
 	};
@@ -87,8 +76,6 @@
 		this.readyState = state;
 		this.display.trigger('readystatechange.Vizard', [ state, this ]);
 	};
-
-	// ...
 
 	Vizard.fn = fn;
 

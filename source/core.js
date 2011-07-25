@@ -35,7 +35,7 @@ function Vizard( display, href, handler ) {
 		vizard.document    = document;
 		vizard.styleSheets = document.styleSheets;
 
-		display.show();
+		display.css('display', 'block');
 		vizard.setState( Vizard.INTERACTIVE );
 
 		vizard.control( document.body );
@@ -45,12 +45,6 @@ function Vizard( display, href, handler ) {
 
 		vizard.setState( Vizard.COMPLETE );
 	});
-
-	var sheet = $('<style type="text/css">').appendTo('head').get(0).sheet;
-	vizard.styleSheet = sheet;
-
-	vizard.addStyle('body', 'overflow: hidden;');
-	vizard.addStyle('.control', 'display: block; position: absolute;');
 
 	$.ajax( href, {
 		dataType: 'text',
