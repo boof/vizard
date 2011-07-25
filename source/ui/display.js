@@ -3,13 +3,15 @@
 	var $ = Vizard.jQuery;
 
 	function display(id, eventHandler) {
-		var $$;
+		var $$, target;
 
 		$$ = $('<iframe class="vizard-ui-display" frameborder="0">');
 		$$.attr('id', id);
 
-		var target;
-		$.window.resize(function() { $$.css( 'height', target.height() ); });
+		$.window.resize(function() {
+			$$.height( target.height() );
+			$$.width( target.width() );
+		});
 		$$.load(function() { target = $( $$.contents().get(0).body ); });
 
 		if ( eventHandler ) {
