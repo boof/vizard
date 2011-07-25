@@ -80,7 +80,7 @@
 			control.data('target', this);
 			$$.data('controller', control);
 
-			$.window.resize(function refit() {
+			$.window.resize(function() {
 				control.css( $$.offset() )
 				       .width( $$.outerWidth() )
 				       .height( $$.outerHeight() );
