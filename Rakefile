@@ -21,6 +21,8 @@ task :concat do
     end
   end
 end
+
+# TODO rename to build, use the last concat'd file in public
 task :minify => [ :concat ] do
   File.open compressed, 'w' do |file|
     file << `#{ uglify_bin } -nc #{ uncompressed }`
