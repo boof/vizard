@@ -17,7 +17,7 @@
 	};
 
 	fn.makeSnapshot = function() {
-		return this.document.documentElement.innerHTML;
+		return this.document.innerHTML;
 	};
 
 	fn.reset = function() {

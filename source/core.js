@@ -11,6 +11,8 @@ function Vizard( display, href, handler ) {
 	display  = $( display );
 	
 	document = display.contents().get(0);
+	document.open();
+	document.close();
 
 	vizard.display  = display;
 	vizard.location = new Vizard.Location( href );
@@ -31,8 +33,10 @@ function Vizard( display, href, handler ) {
 		Vizard.Filter.writeDOCTYPE
 	);
 
-	display.data('vizard', vizard).one('load', function() {
-		vizard.document    = document;
+	display.data('vizard', vizard).load(function() {
+		if ( vizard.readyState !== Vizard.LOADED ) { return; }
+
+		vizard.document    = document = display.contents().get(0);
 		vizard.styleSheets = document.styleSheets;
 
 		display.css('display', 'block');

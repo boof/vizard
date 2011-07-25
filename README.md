@@ -14,10 +14,9 @@ Bootstrapping Methods
 * Scriptlet
 * HTML
 
-Issues
-------
-Example only tested in Chrome. Strange jQuery error in  Firefox.
-Opera and Internet Explorer 9 are untested.
+Compatibility
+-------------
+Example only tested in Chrome and Firefox 7.0rc2.
 
 Example
 -------

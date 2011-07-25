@@ -8,6 +8,7 @@ sources      = %w[ difflib xhtml-0.3 ].map { |basename| "../vendor/#{ basename }
 sources     += %w[ core tools prototype controls jquery ]
 sources     += %w[ doctype base_tag noscript ssi ].map { |basename| "filter/#{ basename }" }
 sources     += %w[ display overlay ].map { |basename| "ui/#{ basename }" }
+sources     += %w[ display layer overlay ].map { |basename| "ui/#{ basename }" }
 
 uncompressed = File.join root, 'public', 'js', "vizard-#{ version }.js"
 compressed   = File.join root, 'public', 'js', "vizard-#{ version }.min.js"

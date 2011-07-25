@@ -3,7 +3,7 @@
 	var $ = Vizard.jQuery;
 
 	Vizard.fn.control = function() {
-		var container, behaviours, behaviour, handlers, handler, $$;
+		var container, behaviours, behaviour, handlers, handler, $$, args = arguments;
 		this.elements = this.elements || this.jQuery();
 
 		for (var selector in this.handler) {
@@ -15,7 +15,7 @@
 			.filter(function() {
 				var select = false, element = this;
 
-				$.each(arguments, function() {
+				$.each(args, function() {
 					container = $(this);
 
 					// RADAR Does .is() mean this should be selected?

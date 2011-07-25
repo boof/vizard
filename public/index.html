@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen" charset="utf-8"/>
 <link rel="stylesheet" href="/css/example.css" type="text/css" media="screen" charset="utf-8"/>
 
-<h1>Vizard - Example (only working in Chrome)</h1>
+<h1>Vizard - Example</h1>
 <p>Vizard is loading...</p>
 <!--# include virtual="/ssi.include" -->
 
@@ -17,6 +17,7 @@
 		Vizard.UI.addStyle('body', 'margin: 0;');
 		// add border to controls
 		Vizard.UI.addStyle('.vizard-ui-control', 'border: 1px dotted rgba(255, 255, 255, .2); margin: -1px;');
+		Vizard.UI.addStyle('.vizard-ui-layer pre', 'background-color: rgba(0, 0, 0, .4); color: white; margin: 0 auto; width: 960px; overflow-x: scroll; padding: 1em 2em;');
 
 		display = Vizard.UI.display('display', function(e, state, vizard) {
 			switch (state) {
@@ -45,11 +46,16 @@
 
 		display.vizard( window.location.href, {
 			'h1': {
-				click: function() { console.log( V.serialize() ); },
-				title: 'Write HTML to console.'
+				click: function() {
+					var layer = Vizard.UI.layer(display)
+					  , pre   = $('<pre>').text( V.serialize() );
+
+					layer.append(pre).click(function() { layer.remove(); });
+				},
+				title: 'Show source in layer.'
 			},
 			'p': {
-				click: function() { alert('You clicked?'); },
+				click: function() { confirm('You clicked?'); },
 				title: 'Hello Sir.'
 			}
 		});
