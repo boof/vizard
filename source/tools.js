@@ -93,6 +93,8 @@
 	Vizard.Filter = {};
 	Vizard.Filter.Chain = FilterChain;
 
+	Vizard.UI = {};
+
 	Vizard.entitle = entitle;
 
 })(Vizard);
