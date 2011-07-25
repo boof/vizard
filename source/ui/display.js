@@ -9,12 +9,7 @@
 		$$.attr('id', id);
 
 		var target;
-		$.window.resize(function() {
-			var height = target.height();
-			if ( $$.height() != height ) {
-				$$.css('height', height).trigger('resize.Vizard', height);
-			}
-		});
+		$.window.resize(function() { $$.css( 'height', target.height() ); });
 		$$.load(function() { target = $( $$.contents().get(0).body ); });
 
 		if ( eventHandler ) {
