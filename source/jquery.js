@@ -1,24 +1,28 @@
 (function($, Vizard) {
 
 	$.fn.vizard = function( href, handler ) {
+		var args = arguments, result = this;
+
 		this.each(function() {
 			var vizard = $( this ).data('vizard');
 
 			if ( vizard ) {
-				if ( arguments.length > 0 ) {
+				if ( args.length > 0 ) {
 					var funcName = arguments[0]
 					  , funcArgs = Array.prototype['slice'].call(arguments, 1);
 
-					return vizard[ funcName ].apply( vizard, funcArgs );
+					result = vizard[ funcName ].apply( vizard, funcArgs );
 				}
 
-				return vizard;
+				result = vizard;
+				return false;
 			}
 
-			return new Vizard( this, href, handler );
+			new Vizard( this, href, handler );
+			return true;
 		});
 
-		return this;
+		return result;
 	};
 
 })(jQuery, Vizard);
