@@ -13,7 +13,10 @@
 	window.addEventListener('load.vizard', function(e) {
 		var V, display;
 
+		// body shouldn't have a margin
 		Vizard.UI.addStyle('body', 'margin: 0;');
+		// add border to controls
+		Vizard.UI.addStyle('.vizard-ui-control', 'border: 1px dotted rgba(255, 255, 255, .2); margin: -1px;');
 
 		display = Vizard.UI.display('display', function(e, state, vizard) {
 			switch (state) {
@@ -41,7 +44,7 @@
 		
 
 		display.vizard( window.location.href, {
-			'body': {
+			'h1': {
 				click: function() { console.log( V.serialize() ); },
 				title: 'Write HTML to console.'
 			},
