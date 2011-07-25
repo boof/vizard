@@ -5,9 +5,7 @@
 	function overlay(id, target) {
 		var $$;
 
-		$.window.bind('resize.Vizard', function(e, height) {
-			$$.height( height );
-		});
+		$.window.resize(function() { $$.height( target.height() ); });
 
 		$$ = $('<div class="vizard-ui-overlay">');
 		$$.attr('id', id);
