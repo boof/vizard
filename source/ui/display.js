@@ -1,6 +1,7 @@
 (function(Vizard) {
 
-	var $ = Vizard.jQuery;
+	var $  = Vizard.jQuery,
+	    UI = Vizard.UI;
 
 	function display(id, eventHandler) {
 		var $$, target;
@@ -20,6 +21,11 @@
 
 		return $$;
 	}
-	Vizard.UI.display = display;
+
+	UI.addStyle('.vizard-ui-display',
+		'display: none; border: none; position: absolute; top: 0; left: 0; min-width: 100%; min-height: 100%;');
+
+
+	UI.display = display;
 
 })(Vizard);

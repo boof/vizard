@@ -149,4 +149,8 @@
 		return garbage;
 	};
 
+	Vizard.UI.addStyle('.vizard-ui-control',
+		'display: block; position: absolute;');
+	
+
 })(Vizard);
