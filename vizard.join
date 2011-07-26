@@ -1,0 +1,13 @@
+version = File.read File.expand_path('../VERSION', __FILE__)
+
+Package.new :vizard => "public/js/vizard-#{ version }.js" do |package|
+
+  package.vendor / %w[ difflib.js xhtml-0.3.js ]
+
+  package.source do |source|
+    source        / %w[ core.js tools.js prototype.js controls.js jquery.js ]
+    source.filter / %w[ doctype.js base_tag.js noscript.js ssi.js ]
+    source.ui     / %w[ display.js overlay.js ]
+  end
+
+end

@@ -83,7 +83,8 @@ Instance Methods
 
 Requirements
 ------------
-jQuery 1.6.2
+
+* jQuery 1.6.2
 
 Build Requirements
 ------------------
@@ -94,4 +95,4 @@ Build Requirements
 Build
 -----
 
-    $ rake minify
+    $ rake
