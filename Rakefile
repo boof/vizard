@@ -8,7 +8,7 @@ version    = File.read File.join(root, 'VERSION').chomp
 
 path       = File.join root, 'public', 'js', "vizard-#{ version }.min.js"
 
-load 'vizard.join'
+load 'vizard.rpd'
 pkg = Package[:vizard]
 
 task :clean do

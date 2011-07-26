@@ -50,9 +50,9 @@ class Package
   end
 
   class Scope < BasicObject
-    String = ::String
-    File = ::File
+    File   = ::File
     Kernel = ::Kernel
+    String = ::String
 
     def self.new(root)
       instance = allocate
@@ -89,7 +89,7 @@ class Package
             yield path
             paths << path
           end
-        when ::String
+        when String
           yield path
           paths << path
         end
