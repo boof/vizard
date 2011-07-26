@@ -15,6 +15,6 @@ end
 
 load 'vizard.rpd'
 
-guard 'package', :package => Package[:vizard], :validator => Lint::Validator do
+guard 'package', :package => ::Package[:vizard], :validator => Lint::Validator do
   watch(/^.+\.js$/)
 end
