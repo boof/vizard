@@ -142,7 +142,7 @@
 		if ( typeof(opts.writeback) == 'function' ) {
 			filter.set = opts.writeback;
 		} else {
-			function nop() {};
+			function nop() {}
 		}
 
 		function includeSSI( source ) {
@@ -204,7 +204,7 @@
 		}
 
 		return filter;
-	};
+	}
 
 	Vizard.Filter.SSI = SSI;
 
