@@ -7,7 +7,7 @@
   * *firefox (aurora) and chrome support*
   * implement stacking model
   * implement windows
-  * layers => modal mode for windows
+  * layers => modal mode for windows => Stack#background transition
   * draggable windows without binding
   * controls
   * add commonly used modules
