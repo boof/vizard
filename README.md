@@ -42,14 +42,14 @@ Example
     })
     .vizard( href, {
 
-        // handlers are added by selector
-        'p.editable': {
-
-            // event handlers are called on selected elements
-            click: function() { alert(this.innerText); },
+        'p.editable': { // handlers are added by selector
 
             // but we can also assign titles to the controls
-            title: 'Click to pop-up inner text.'
+            title: 'Hello Sir...',
+
+            // event handlers are called on selected elements
+            click: function() { confirm('..., you clicked?'); }
+
         }
     });
 
@@ -64,7 +64,7 @@ Example
 Example only tested in Chrome and Firefox 7.0rc2.
 
 ### Requirements
----------------
+----------------
 
 * jQuery 1.6.2
 
@@ -86,7 +86,7 @@ Example only tested in Chrome and Firefox 7.0rc2.
 To set up a development environment for vizard run bundle install and install
 JavaScript Lint.
 
-**On OS X with bundler and brew installed:**
+**On OS X with bundler and [Homebrew](http://mxcl.github.com/homebrew/) installed:**
 
     $ bundle install
     $ brew install jslint
@@ -115,3 +115,8 @@ JavaScript Lint.
 * Ruby 1.9.2
 * bundler
 * jsl
+
+## Sponsors
+-----------
+
+[Fork Unstable Media GmbH](http://fork.de/)
