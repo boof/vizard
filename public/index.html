@@ -21,7 +21,7 @@
 	window.addEventListener('load.vizard', function(e) {
 		var V, display, stack, UI = Vizard.UI, $ = Vizard.jQuery;
 
-		UI.addStyle('.vizard-ui-overlay pre', 'border-left: 40px solid rgba(255, 255, 255, .5); color: white; padding: 0 20px;');
+		UI.addStyle('.vizard-ui-overlay pre', 'border-left: 40px solid rgba(255, 255, 255, .5); color: white; padding: 0 20px; white-space: pre-wrap;');
 		UI.addStyle('.vizard-ui-frame', 'background-color: rgba(0, 0, 0, .6);');
 
 		display = UI.display(function(e, state, vizard) {
@@ -55,11 +55,18 @@
 			'h1': {
 				click: function() {
 					var frame = UI.frame($( this ).data('target')).height('auto');
-					$('<pre style="white-space: pre-wrap;" contenteditable="true">').text( V.serialize() ).appendTo( frame );
-
-					stack.modal( frame );
 
 					frame.blur(function() { frame.remove(); });
+					stack.modal( frame );
+
+					$('<pre contenteditable="true">').text( V.serialize() ).
+					keydown(function(e) {
+						if (e.which == 27 ) { stack.overlay.click(); }
+						if (e.which != 9) { return; }
+						document.execCommand('insertHTML', null, '&#09;');
+						e.preventDefault();
+					}).
+					appendTo( frame ).focus();
 				},
 				title: 'Show source.'
 			},
