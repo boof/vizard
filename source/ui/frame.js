@@ -3,16 +3,17 @@
 	var $  = Vizard.jQuery
 	  , UI = Vizard.UI;
 
-	function frame(element) {
-		var $$ = $( element );
-
-		return $('<div class="vizard-ui-frame">', element).
-			offset( $$.offset() ).
-			width( $$.width() );
-	}
-
 	UI.addStyle('.vizard-ui-frame', 'overflow-x: scroll; overflow-y: hidden; position: absolute;');
 
-	return UI.frame = frame;
+	return UI.frame = function(element) {
+		var $$    = $( element )
+		  , frame = $('<div class="vizard-ui-frame">', element);
+
+		$.window.resize(function() {
+			frame.offset( $$.offset() ).width( $$.width() );
+		});
+
+		return frame.offset( $$.offset() ).width( $$.width() );
+	};
 
 })(Vizard);
