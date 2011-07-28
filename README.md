@@ -76,6 +76,7 @@ Example only tested in Chrome and Firefox 7.0rc2.
 ### Requirements
 ----------------
 
+* Ruby 1.9.2
 * rake
 * uglify-js
 
@@ -84,6 +85,8 @@ Example only tested in Chrome and Firefox 7.0rc2.
 
 To set up a development environment for vizard run bundle install and install
 JavaScript Lint.
+
+**On OS X with bundler and brew installed:**
 
     $ bundle install
     $ brew install jslint
@@ -109,5 +112,6 @@ JavaScript Lint.
 ### Requirements
 ----------------
 
+* Ruby 1.9.2
 * bundler
 * jsl
