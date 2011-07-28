@@ -8,21 +8,11 @@ It does so by loading the target document into an IFRAME and generating
 These elements are defined by selectors, mapping to multiple event handlers
 (see example).
 
-Bootstrapping Methods
----------------------
-
-* Scriptlet
-* HTML
-
-Compatibility
--------------
-Example only tested in Chrome and Firefox 7.0rc2.
-
 Example
 -------
 
     $('#iframe')
-    .bind('onreadystatechange.Vizard', function(e, state, vizard) {
+    .bind('readystatechange.Vizard', function(e, state, vizard) {
         switch ( state ) {
 
             case Vizard.LOADING:
@@ -63,8 +53,43 @@ Example
         }
     });
 
-Instance Attributes
--------------------
+### Bootstrap
+-------------
+
+* Scriptlet
+* HTML
+
+### Compatibility
+-----------------
+Example only tested in Chrome and Firefox 7.0rc2.
+
+### Requirements
+---------------
+
+* jQuery 1.6.2
+
+## Build
+--------
+
+    $ rake
+
+### Requirements
+----------------
+
+* rake
+* uglify-js
+
+## Development
+--------------
+
+To set up a development environment for vizard run bundle install and install
+JavaScript Lint.
+
+    $ bundle install
+    $ brew install jslint
+
+### Instance Attributes
+-----------------------
 
 * controls
 * document
@@ -75,24 +100,14 @@ Instance Attributes
 * inputFilter
 * outputFilter
 
-Instance Methods
-----------------
+### Instance Methods
+--------------------
 
 * setState
 * ...
 
-Requirements
-------------
+### Requirements
+----------------
 
-* jQuery 1.6.2
-
-Build Requirements
-------------------
-
-* rake
-* uglify-js
-
-Build
------
-
-    $ rake
+* bundler
+* jsl
