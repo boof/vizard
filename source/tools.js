@@ -92,12 +92,12 @@
 
 	if ($.browser.msie) {
 		addStyle = function(selector, rule, index) {
-			return sheet.addRule(selector, rule, index);
+			return this.addRule(selector, rule, index);
 		};
 	} else {
 		addStyle = function(selector, rule, index) {
 			if (typeof(index) != 'number') index = 0;
-			return sheet.insertRule(selector.concat(' {', rule, '}'), index);
+			return this.insertRule(selector.concat(' {', rule, '}'), index);
 		};
 	}
 
@@ -109,7 +109,14 @@
 
 	Vizard.UI = {};
 	Vizard.UI.styleSheet = sheet;
-	Vizard.UI.addStyle = addStyle;
+	Vizard.UI.addStyle = function(selector, rule, index) {
+		if ( typeof(selector) != 'object' ) {
+			addStyle.apply( sheet, arguments );
+		} else { for ( var property in selector ) {
+			if ( !selector.hasOwnProperty(property) ) { continue; }
+			addStyle.call( sheet, property, selector[property] );
+		} }
+	};
 
 	Vizard.entitle = entitle;
 

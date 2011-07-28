@@ -3,22 +3,19 @@
 	var $  = Vizard.jQuery,
 	    UI = Vizard.UI;
 
-	function Stack(view) {
-		var document = view.ownerDocument,
+	function Stack(background) {
+		var document = background.ownerDocument,
 
-		$$ = $( view ),
+		$$ = $( background ),
 
-		container  = $('<div class="vizard-ui-stack">', document),
-		background = $('<div class="vizard-ui-stack-background">', document),
-		stacker    = $('<div class="vizard-ui-stack-stacker">', document),
-		top        = $('<div class="vizard-ui-stack-top">', document),
-		children   = background.add(stacker).add(top),
+		overlay = $('<div class="vizard-ui-overlay">', document),
+		stack   = $('<div class="vizard-ui-stack">', document),
 
 		height = 0,
 		width  = 0,
 		offset = { x: 0, y: 0 },
 
-		stack = this;
+		instance = this;
 
 		$.window.resize(function() {
 			var oldHeight = height,
@@ -37,38 +34,59 @@
 			newOffset = newOffset || ( oldOffset.y != offset.y );
 
 			if ( newSize && newOffset ) {
-				container.height(height);
-				container.width(width);
-				container.offset(offset);
+				overlay.height(height);
+				overlay.width(width);
+				overlay.offset(offset);
 				// RADAR trigger events here
 			} else if ( newSize ) {
-				container.height(height);
-				container.width(width);
+				overlay.height(height);
+				overlay.width(width);
 				// RADAR trigger events here
 			} else if ( newOffset ) {
-				container.offset(offset);
+				overlay.offset(offset);
 				// RADAR trigger events here
 			}
 		});
 
-		this.background = background;
-		this.stacker    = stacker;
-		this.top        = top;
+		overlay.click(function(e) {
+			if ( overlay.is(e.target) ) { overlay.children().blur(); }
+		});
+		stack.blur(function() { stack.show(); });
 
-		container.append(children).insertAfter(view);
+		overlay.scroll(function(e) {
+			// RADAR does not work with Firefox...
+			// TODO move the document
+			background.contents().
+			scrollTop(e.srcElement.scrollTop).
+			scrollLeft(e.srcElement.scrollLeft);
 
-		return this;
+			//$( target ).offset({
+			//	top: e.srcElement.scrollTop * -1,
+			//	left: e.srcElement.scrollLeft * -1
+			//});
+			// console.log(e.srcElement.scrollTop, e.srcElement.scrollLeft);
+		});
+
+		this.overlay = overlay;
+		this.stack = stack;
+		overlay.append(stack).insertAfter(background);
+
+		return instance;
 	}
 
 	Stack.prototype.focus = function( element ) {
-		this.stacker.append( this.top.children() );
-		this.top.append( element );
+		this.stack.append( element );
+	};
+	Stack.prototype.modal = function( element ) {
+		this.stack.hide();
+		this.overlay.append( element );
 	};
 
-	UI.addStyle('.vizard-ui-stack, .vizard-ui-stack-*',
-		'position: absolute;');
-	UI.addStyle('.vizard-ui-stack-*',
-		'top: 0; right: 0; bottom: 0; left: 0;');
+	UI.addStyle({
+		'.vizard-ui-overlay, .vizard-ui-stack': 'position: absolute;',
+		'.vizard-ui-overlay': 'overflow: auto;',
+		'.vizard-ui-stack': 'top: 0; right: 0; bottom: 0; left: 0;'
+	});
 
 	return UI.Stack = Stack;
 

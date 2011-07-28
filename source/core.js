@@ -45,9 +45,9 @@ function Vizard( display, href, handler ) {
 		vizard.control( document.body );
 		vizard.reset();
 
-		$.window.resize();
-
 		vizard.setState( Vizard.COMPLETE );
+
+		$.window.resize();
 	});
 
 	$.ajax( href, {
