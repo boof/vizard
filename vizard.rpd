@@ -9,7 +9,7 @@ Package.new :vizard => "public/js/vizard-#{ version }.js" do |package|
   package.source do |source|
     source        / %w[ core.js tools.js prototype.js controls.js jquery.js ]
     source.filter / %w[ doctype.js base_tag.js noscript.js ssi.js ]
-    source.ui     / %w[ display.js stack.js ]
+    source.ui     / %w[ display.js frame.js stack.js ]
   end
 
 end

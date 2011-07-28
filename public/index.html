@@ -21,13 +21,8 @@
 	window.addEventListener('load.vizard', function(e) {
 		var V, display, stack, UI = Vizard.UI, $ = Vizard.jQuery;
 
-		UI.addStyle({
-			'body':                     'margin: 0; overflow: hidden;',
-			'.vizard-ui-control':       'cursor: pointer; border: 1px solid rgba(255, 255, 255, .2); margin: -5px -10px; padding: 4px 9px;',
-			'.vizard-ui-control:hover': 'background-color: rgba(255, 0, 0, .2);',
-			// TODO write helper that does most of the work for aligning and sizing elements
-			'.vizard-ui-overlay pre':   'background-color: rgba(0, 0, 0, .4); color: white; margin: 0 auto; width: 960px; overflow-x: scroll; padding: 1em 2em;'
-		});
+		UI.addStyle('.vizard-ui-overlay pre', 'border-left: 40px solid rgba(255, 255, 255, .5); color: white; padding: 0 20px;');
+		UI.addStyle('.vizard-ui-frame', 'background-color: rgba(0, 0, 0, .6);');
 
 		display = UI.display(function(e, state, vizard) {
 			switch (state) {
@@ -35,7 +30,7 @@
 					V = vizard;
 
 					vizard.inputFilter.push(function(source) {
-						return source.replace(/<p>.*<\/p>/, '<p>Vizard is now ready.</p>');
+						return source.replace(/<p>.*<\/p>/, '<p>Vizard initialized inline.</p>');
 					});
 
 					Vizard.Filter.SSI().bind( vizard );
@@ -59,14 +54,12 @@
 		display.vizard( window.location.href, {
 			'h1': {
 				click: function() {
-					var pre = $('<pre>').text( V.serialize() );
+					var frame = UI.frame($( this ).data('target')).height('auto');
+					$('<pre style="white-space: pre-wrap;" contenteditable="true">').text( V.serialize() ).appendTo( frame );
 
-					// pre.at(this).resize(this, 'width').offset...
-					
-					// $( this ).applyTo( pre, 'offset', 'width' );
-					stack.modal( pre );
+					stack.modal( frame );
 
-					pre.blur(function() { pre.remove(); });
+					frame.blur(function() { frame.remove(); });
 				},
 				title: 'Show source.'
 			},

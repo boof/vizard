@@ -20,7 +20,7 @@ jQuery(function($) {
 				V = vizard;
 
 				vizard.inputFilter.push(function(source) {
-					return source.replace(/<p>.*<\/p>/, '<p>Vizard is now ready.</p>');
+					return source.replace(/<p>.*<\/p>/, '<p>Vizard initialized on remote page.</p>');
 				});
 
 				Vizard.Filter.SSI().bind(vizard);

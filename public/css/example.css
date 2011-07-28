@@ -21,3 +21,6 @@ p>a {
 p {
 	line-height: 1.5em;
 }
+hr {
+	clear: both;
+}
