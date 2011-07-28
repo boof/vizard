@@ -1,4 +1,4 @@
-# ruby package description
+# RubyPackageDSL
 
 version = File.read File.expand_path('../VERSION', __FILE__)
 

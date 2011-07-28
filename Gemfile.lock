@@ -1,0 +1,27 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    addressable (2.2.6)
+    em-websocket (0.3.0)
+      addressable (>= 2.1.1)
+      eventmachine (>= 0.12.9)
+    eventmachine (0.12.10)
+    growl (1.0.3)
+    guard (0.5.1)
+      thor (~> 0.14.6)
+    guard-livereload (0.2.0)
+      em-websocket (>= 0.2.0)
+      guard (>= 0.4.0)
+      json (>= 1.5.1)
+    json (1.5.3)
+    rb-fsevent (0.4.1)
+    thor (0.14.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  growl
+  guard
+  guard-livereload
+  rb-fsevent

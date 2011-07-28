@@ -1,3 +1,6 @@
+require 'bundler'
+Bundler.require :default, :osx
+
 require File.expand_path('../lib/guard/package', __FILE__)
 
 module Lint
@@ -13,8 +16,12 @@ module Lint
   end
 end
 
-load 'vizard.rpd'
+guard 'livereload' do
+  watch %r{public/.+.html}
+  watch %r{public/.+.js}
+  watch %r{public/.+.css}
+end
 
-guard 'package', :package => ::Package[:vizard], :validator => Lint::Validator do
+guard 'package', :package => Package[:vizard], :validator => Lint::Validator do
   watch(/^.+\.js$/)
 end

@@ -4,7 +4,10 @@ class Package
   alias_method :path, :output_path
   alias_method :to_s, :output_path
 
-  @@packages = {}
+  @@packages = Hash.new do |h, name|
+    load "#{ name }.rpd"
+    h.fetch name
+  end
 
   def self.new( output_path, root = Dir.getwd )
     if Hash === output_path
