@@ -49,25 +49,28 @@
 			}
 		});
 
-		overlay.click(function(e) {
-			if ( overlay.is(e.target) ) { overlay.children().blur(); }
+		overlay.bind({
+			scroll: function(e) {
+				var el         = $( e.target )
+				  , top        = el.scrollTop()
+				  , left       = el.scrollLeft()
+				  , view       = background.contents()
+				  , viewHeight = view.height()
+				  , viewWidth  = view.width();
+
+				// TODO fix scroll issues
+				// if ( top + height > viewHeight ) {  }
+				// if ( left + width > viewWidth ) {  }
+
+				view.scrollTop(top).scrollLeft(left);
+			},
+			click: function(e) {
+				if ( !overlay.is(e.target) ) { return; }
+				overlay.children().trigger('stack');
+			}
 		});
-		stack.blur(function() { stack.show(); });
 
-		overlay.scroll(function(e) {
-			var el         = $( e.target )
-			  , top        = el.scrollTop()
-			  , left       = el.scrollLeft()
-			  , view       = background.contents()
-			  , viewHeight = view.height()
-			  , viewWidth  = view.width();
-
-			// TODO fix scroll issues
-			// if ( top + height > viewHeight ) {  }
-			// if ( left + width > viewWidth ) {  }
-
-			view.scrollTop(top).scrollLeft(left);
-		});
+		stack.bind('stack', function(e) { stack.show(); });
 
 		this.overlay = overlay;
 		this.stack = stack;
@@ -76,12 +79,17 @@
 		return instance;
 	}
 
-	Stack.prototype.frame = function( element ) {
+	Stack.prototype.frame = function( element, onStack ) {
 		var stack = this;
 
-		return UI.frame( element ).focus(function(e, modal) {
-			if (e.target !== this) { return; }
-			modal ? stack.modal( this ) : stack.focus( this );
+		if ( typeof onStack != 'function' ) { onStack = function() {}; }
+
+		return UI.frame( element ).bind({
+			focus: function(e, modal) {
+				if ( e.target != this ) { return; }
+				modal ? stack.modal( this ) : stack.focus( this );
+			},
+			stack: function(e) { onStack.apply(this, arguments); }
 		});
 	};
 

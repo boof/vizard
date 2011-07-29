@@ -49,16 +49,16 @@
 					break;
 			}
 		}).prependTo('body');
-		
 
 		display.vizard( window.location.href, {
 			'h1': {
 				click: function() {
-					var frame = stack.frame( $( this ).data('target') );
+					var element = $( this ).data('target')
+					  , frame;
 
-					frame.
-						blur(function() { frame.remove(); }).
-						trigger('focus', true);
+					frame = stack.frame( element, function(e) {
+						frame.remove();
+					}).trigger('focus', true);
 
 					$('<pre contenteditable="true">').text( V.serialize() ).
 					keydown(function(e) {
