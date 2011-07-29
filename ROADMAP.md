@@ -5,10 +5,10 @@
 * 0.7
   * *SSI*
   * *firefox (aurora) and chrome support*
+  * *modal mode for windows*
   * implement stacking model
-  * implement windows
-  * layers => modal mode for windows => Stack#background transition
-  * draggable windows without binding
+  * implement TreeWalker based XHTML serializer
+  * implement frames and windows
   * controls
   * add commonly used modules
     * provide API for Component integration and combination
@@ -21,9 +21,10 @@
     * context menu extension
 * 0.8
   * support internet explorer 9+ and opera 11
-  * scriptlet (-generator) for bookmarks toolbar
   * bootstrap methods
   * public demo page on delivery.fork.de (aka fork.github.com)
+  * draggable windows without binding
+  * undo/redo support / html-delta compression (http://code.google.com/p/jslzjb/)
 * 0.9
   * WebDAV file manager component/module
     * per folder properties => local-storage & global sync
@@ -32,8 +33,7 @@
     * list view
     * details view
     * ...
-  * implement TreeWalker based XHTML serializer
-  * undo/redo support / html-delta compression (http://code.google.com/p/jslzjb/)
+  * scriptlet (-generator) for bookmarks toolbar
 * 1.0
   * drag'n'drop support (bound)
   * publishing assistent
