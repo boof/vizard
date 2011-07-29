@@ -38,6 +38,7 @@
 				overlay.width(width);
 				overlay.offset(offset);
 				// RADAR trigger events here
+				// stack.children, overlay.children().not(stack)
 			} else if ( newSize ) {
 				overlay.height(height);
 				overlay.width(width);
@@ -54,17 +55,18 @@
 		stack.blur(function() { stack.show(); });
 
 		overlay.scroll(function(e) {
-			// RADAR does not work with Firefox...
-			// TODO move the document
-			background.contents().
-			scrollTop(e.srcElement.scrollTop).
-			scrollLeft(e.srcElement.scrollLeft);
+			var el         = $( e.target )
+			  , top        = el.scrollTop()
+			  , left       = el.scrollLeft()
+			  , view       = background.contents()
+			  , viewHeight = view.height()
+			  , viewWidth  = view.width();
 
-			//$( target ).offset({
-			//	top: e.srcElement.scrollTop * -1,
-			//	left: e.srcElement.scrollLeft * -1
-			//});
-			// console.log(e.srcElement.scrollTop, e.srcElement.scrollLeft);
+			// TODO fix scroll issues
+			// if ( top + height > viewHeight ) {  }
+			// if ( left + width > viewWidth ) {  }
+
+			view.scrollTop(top).scrollLeft(left);
 		});
 
 		this.overlay = overlay;
@@ -73,6 +75,15 @@
 
 		return instance;
 	}
+
+	Stack.prototype.frame = function( element ) {
+		var stack = this;
+
+		return UI.frame( element ).focus(function(e, modal) {
+			if (e.target !== this) { return; }
+			modal ? stack.modal( this ) : stack.focus( this );
+		});
+	};
 
 	Stack.prototype.focus = function( element ) {
 		this.stack.append( element );
