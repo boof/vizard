@@ -33,21 +33,41 @@ function Vizard( display, href, handler ) {
 		Vizard.Filter.writeDOCTYPE
 	);
 
-	display.data('vizard', vizard).load(function() {
-		if ( vizard.readyState !== Vizard.LOADED ) { return; }
+	display.data('vizard', vizard).bind({
+		load: function() {
+			if ( vizard.readyState !== Vizard.LOADED ) { return; }
 
-		vizard.document    = document = display.contents().get(0);
-		vizard.styleSheets = document.styleSheets;
+			vizard.document    = document = display.contents().get(0);
+			vizard.styleSheets = document.styleSheets;
 
-		display.css('display', 'block');
-		vizard.setState( Vizard.INTERACTIVE );
+			display.css('display', 'block');
+			vizard.setState( Vizard.INTERACTIVE );
+		},
+		'readystatechange.Vizard': function(e, state) {
+			if ( typeof console == 'object' ) { console.log(state); }
 
-		vizard.control( document.body );
-		vizard.reset();
+			switch (state) {
 
-		vizard.setState( Vizard.COMPLETE );
+				case Vizard.LOADED:
+					document.open();
+					document.write( vizard.source );
+					document.close();
+				break;
 
-		$.window.resize();
+				case Vizard.INTERACTIVE:
+					vizard.controls.remove();
+					vizard.controls = Vizard.fn.controls;
+					vizard.control( document.body );
+					vizard.reset();
+
+					vizard.setState( Vizard.COMPLETE );
+
+					$.window.resize();
+				break;
+
+				default: break;
+			}
+		}
 	});
 
 	$.ajax( href, {
@@ -56,10 +76,6 @@ function Vizard( display, href, handler ) {
 			vizard.contentType = jqXHR.getResponseHeader('Content-Type');
 			vizard.source      = vizard.inputFilter(source);
 			vizard.setState( Vizard.LOADED );
-
-			document.open();
-			document.write( vizard.source );
-			document.close();
 		}
 	});
 
