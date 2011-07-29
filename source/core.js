@@ -44,7 +44,7 @@ function Vizard( display, href, handler ) {
 			vizard.setState( Vizard.INTERACTIVE );
 		},
 		'readystatechange.Vizard': function(e, state) {
-			if ( typeof console == 'object' ) { console.log(state); }
+			if ( typeof console == 'object' ) { console.log('Vizard#' + state); }
 
 			switch (state) {
 
