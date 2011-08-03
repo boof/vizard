@@ -69,7 +69,7 @@ Vizard.jQuery(function() {
 		'p': {
 			click: function() {
 				var innerText = prompt( 'Inner Text:', this.innerText );
-				this.innerText = innerText;
+				if (innerText !== null) { this.innerText = innerText; }
 				$.window.resize();
 			},
 			title: 'Prompt for contents.'
