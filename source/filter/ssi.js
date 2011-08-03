@@ -140,9 +140,9 @@
 		};
 
 		if ( typeof(opts.writeback) == 'function' ) {
-			filter.set = opts.writeback;
+			this.set = opts.writeback;
 		} else {
-			function nop() {}
+			this.set = function() {};
 		}
 
 		function includeSSI( source ) {
