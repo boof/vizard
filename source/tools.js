@@ -90,15 +90,35 @@
 	var sheet = $('<style type="text/css">').appendTo('head').get(0).sheet
 	  , addStyle;
 
-	if ($.browser.msie) {
-		addStyle = function(selector, rule, index) {
-			return this.addRule(selector, rule, index);
+	if (sheet.insertRule) {
+		addStyle = function(selector, styles, index) {
+			var rule = selector.concat(' {', toStyle(styles), '}');
+			if (typeof(index) != 'number') index = 0;
+
+			return this.insertRule(rule, index);
 		};
 	} else {
-		addStyle = function(selector, rule, index) {
-			if (typeof(index) != 'number') index = 0;
-			return this.insertRule(selector.concat(' {', rule, '}'), index);
+		addStyle = function(selector, styles, index) {
+			return this.addRule(selector, toStyle(styles), index);
 		};
+	}
+
+	function toStyle(obj) {
+		var rules, rule;
+
+		switch ( typeof obj ) {
+			case 'string': return obj;
+			case 'object':
+				rules = [];
+				for ( var property in obj ) {
+					if ( obj.hasOwnProperty(property) ) {
+						rule = property.concat(': ', obj[ property ], ';');
+						rules.push(rule);
+					}
+				}
+				return rules.join(' ');
+			default: return '';
+		}
 	}
 
 	Vizard.Location = Location;
@@ -108,6 +128,7 @@
 	Vizard.Filter.Chain = FilterChain;
 
 	Vizard.UI = {};
+	Vizard.UI.entitle = entitle;
 	Vizard.UI.styleSheet = sheet;
 	Vizard.UI.addStyle = function(selector, rule, index) {
 		if ( typeof(selector) != 'object' ) {
@@ -117,7 +138,5 @@
 			addStyle.call( sheet, property, selector[property] );
 		} }
 	};
-
-	Vizard.entitle = entitle;
 
 })(Vizard);

@@ -11,49 +11,74 @@
 <script src="/js/vizard-0.7.0.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" charset="utf-8">
-jQuery(function($) {
-	var V, display;
+Vizard.jQuery(function($) {
+	var V, display, stack, UI = Vizard.UI;
 
-	display = Vizard.UI.display('display', function(e, state, vizard) {
+	UI.addStyle('.vizard-ui-overlay pre', 'color: white; padding: 0 10px; white-space: pre; border: 1px 0 solid white;');
+	UI.addStyle('.vizard-ui-frame', 'background-color: rgba(66, 66, 66, .6);');
+
+	display = UI.display(function(e, state, vizard) {
 		switch (state) {
 			case Vizard.LOADING:
 				V = vizard;
 
 				vizard.inputFilter.push(function(source) {
-					return source.replace(/<p>.*<\/p>/, '<p>Vizard initialized on remote page.</p>');
+					return source.replace(/<p>.*<\/p>/, '<p>Vizard initialized inline.</p>');
 				});
 
-				Vizard.Filter.SSI().bind(vizard);
+				Vizard.Filter.SSI().bind( vizard );
 
 				break;
 
 			case Vizard.COMPLETE:
+				stack = new UI.Stack(display);
+
 				vizard.controls.sortBySize();
-				Vizard.UI.overlay('overlay', $(V.document)).append(vizard.controls).appendTo('body');
+				stack.stack.append(vizard.controls);
 
 				$('#spinner').hide();
 
-				Vizard.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
+				UI.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
 				break;
 		}
-	});
-
-	display.prependTo('body').vizard( '/', {
+	}).prependTo('body').vizard('/', {
 		'h1': {
 			click: function() {
-				var layer = Vizard.UI.layer(display)
-				  , pre   = $('<pre>').text( V.serialize() );
+				var element = $( this ).data('target')
+				  , frame;
 
-				layer.append(pre).click(function() { layer.remove(); });
+				frame = stack.frame( element, function(e) {
+					frame.remove();
+				}).trigger('focus', true);
+
+				$('<pre contenteditable="true">').text( V.serialize() ).
+				keydown(function(e) {
+					if (e.which == 27 ) { stack.overlay.click(); }
+					if (e.which != 9) { return; }
+					document.execCommand('insertHTML', null, '&#09;');
+					e.preventDefault();
+				}).
+				appendTo( frame ).focus();
 			},
-			title: 'Show source in layer.'
+			title: 'Show source.'
+		},
+		'p:first': {
+			click: function(e) {
+				if ( confirm('Continue?') ) { return; }
+				e.stopImmediatePropagation();
+			},
+			title: 'This element has two onClick handlers.'
 		},
 		'p': {
 			click: function() {
-				var element = $(this).data('target');
-				prompt( 'You clicked?', element.innerText );
+				var $$ = $( $( this ).data('target') )
+				  , content = prompt( 'Content:', $$.text() );
+
+				$$.text(content);
+
+				$.window.resize();
 			},
-			title: 'Hello Sir.'
+			title: 'Prompt for contents.'
 		}
 	});
 });

@@ -21,8 +21,8 @@
 	window.addEventListener('load.vizard', function(e) {
 		var V, display, stack, UI = Vizard.UI, $ = Vizard.jQuery;
 
-		UI.addStyle('.vizard-ui-overlay pre', 'border-left: 40px dotted rgba(255, 255, 255, .5); color: white; padding: 0 20px; white-space: pre-wrap;');
-		UI.addStyle('.vizard-ui-frame', 'background-color: rgba(0, 0, 0, .6);');
+		UI.addStyle('.vizard-ui-overlay pre', 'color: white; padding: 0 10px; white-space: pre; border: 1px 0 solid white;');
+		UI.addStyle('.vizard-ui-frame', 'background-color: rgba(66, 66, 66, .6);');
 
 		display = UI.display(function(e, state, vizard) {
 			switch (state) {
@@ -45,7 +45,7 @@
 
 					$('#spinner').hide();
 
-					Vizard.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
+					UI.entitle( 'Loaded '.concat('"', vizard.jQuery('title').text(), '"') );
 					break;
 			}
 		}).prependTo('body');
