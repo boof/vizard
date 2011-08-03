@@ -11,8 +11,8 @@
 <script src="/js/vizard-0.7.0.js" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript" charset="utf-8">
-Vizard.jQuery(function($) {
-	var V, display, stack, UI = Vizard.UI;
+Vizard.jQuery(function() {
+	var V, display, stack, UI = Vizard.UI, $ = Vizard.jQuery;
 
 	UI.addStyle('.vizard-ui-overlay pre', 'color: white; padding: 0 10px; white-space: pre; border: 1px 0 solid white;');
 	UI.addStyle('.vizard-ui-frame', 'background-color: rgba(66, 66, 66, .6);');
@@ -44,10 +44,7 @@ Vizard.jQuery(function($) {
 	}).prependTo('body').vizard('/', {
 		'h1': {
 			click: function() {
-				var element = $( this ).data('target')
-				  , frame;
-
-				frame = stack.frame( element, function(e) {
+				var frame = stack.frame( this, function(e) {
 					frame.remove();
 				}).trigger('focus', true);
 
@@ -71,11 +68,8 @@ Vizard.jQuery(function($) {
 		},
 		'p': {
 			click: function() {
-				var $$ = $( $( this ).data('target') )
-				  , content = prompt( 'Content:', $$.text() );
-
-				$$.text(content);
-
+				var innerText = prompt( 'Inner Text:', this.innerText );
+				this.innerText = innerText;
 				$.window.resize();
 			},
 			title: 'Prompt for contents.'

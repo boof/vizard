@@ -53,10 +53,7 @@
 		display.vizard( window.location.href, {
 			'h1': {
 				click: function() {
-					var element = $( this ).data('target')
-					  , frame;
-
-					frame = stack.frame( element, function(e) {
+					var frame = stack.frame( this, function(e) {
 						frame.remove();
 					}).trigger('focus', true);
 
@@ -80,11 +77,8 @@
 			},
 			'p': {
 				click: function() {
-					var $$ = $( $( this ).data('target') )
-					  , content = prompt( 'Content:', $$.text() );
-
-					$$.text(content);
-
+					var innerText = prompt( 'Inner Text:', this.innerText );
+					this.innerText = innerText;
 					$.window.resize();
 				},
 				title: 'Prompt for contents.'

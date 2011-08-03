@@ -74,10 +74,12 @@
 
 		this.each(function() {
 			var control    = $('<a class="vizard-ui-control">')
-			  , $$         = $( this )
-			  , behaviours = $$.data('behaviours');
+			  , target     = this
+			  , $$         = $( target )
+			  , behaviours = $$.data('behaviours')
+			  , handlers, proxy;
 
-			control.data('target', this);
+			control.data('target', target);
 			$$.data('controller', control);
 
 			$.window.resize(function() {
@@ -87,11 +89,12 @@
 			});
 
 			for (var eventType in behaviours) {
-				var handlers = behaviours[eventType];
+				handlers = behaviours[eventType];
 
 				if (eventType !== 'title') {
 					$.each(handlers, function(i, handler) {
-						control.bind(eventType, handler);
+						proxy = jQuery.proxy(handler, target);
+						control.bind(eventType, { target: control }, proxy);
 					});
 				} else {
 					control.attr('title', handlers.join("\n"));
