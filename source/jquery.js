@@ -1,3 +1,5 @@
+// display.vizard('serialize'); => html
+// display.vizard(); => vizard
 (function($, Vizard) {
 
 	$.fn.vizard = function( href, handler ) {
