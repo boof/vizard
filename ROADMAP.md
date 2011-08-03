@@ -8,6 +8,9 @@
   * *modal mode for windows*
   * implement stacking model
   * implement TreeWalker based XHTML serializer
+    * Nice Try: http://ejohn.org/blog/pure-javascript-html-parser/
+    * https://developer.mozilla.org/en/DOM/document.createTreeWalker
+    * gist serializer PoC
   * implement frames and windows
   * controls
   * add commonly used modules
