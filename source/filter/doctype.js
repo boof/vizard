@@ -8,24 +8,24 @@
 
 	doctypes['HTML 4.01'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD HTML 4.01//EN"',
-		systemId: '"http://www.w3.org/TR/html4/strict.dtd"',
+		publicId: '-//W3C//DTD HTML 4.01//EN',
+		systemId: 'http://www.w3.org/TR/html4/strict.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
 	};
 	doctypes['HTML 4.01 Transitional'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD HTML 4.01 Transitional//EN"',
-		systemId: '"http://www.w3.org/TR/html4/loose.dtd"',
+		publicId: '-//W3C//DTD HTML 4.01 Transitional//EN',
+		systemId: 'http://www.w3.org/TR/html4/loose.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
 	};
 	doctypes['HTML 4.01 Frameset'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD HTML 4.01 Frameset//EN"',
-		systemId: '"http://www.w3.org/TR/html4/frameset.dtd"',
+		publicId: '-//W3C//DTD HTML 4.01 Frameset//EN',
+		systemId: 'http://www.w3.org/TR/html4/frameset.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
@@ -40,32 +40,32 @@
 	};
 	doctypes['XHTML 1.0'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD XHTML 1.0 Strict//EN"',
-		systemId: '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
+		publicId: '-//W3C//DTD XHTML 1.0 Strict//EN',
+		systemId: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
 	};
 	doctypes['XHTML 1.0 Transitional'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD XHTML 1.0 Transitional//EN"',
-		systemId: '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
+		publicId: '-//W3C//DTD XHTML 1.0 Transitional//EN',
+		systemId: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
 	};
 	doctypes['XHTML 1.0 Frameset'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD XHTML 1.0 Frameset//EN"',
-		systemId: '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"',
+		publicId: '-//W3C//DTD XHTML 1.0 Frameset//EN',
+		systemId: 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
 	};
 	doctypes['XHTML 1.1'] = {
 		name: 'html',
-		publicId: '"-//W3C//DTD XHTML 1.1//EN"',
-		systemId: '"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"',
+		publicId: '-//W3C//DTD XHTML 1.1//EN',
+		systemId: 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',
 		entities: null, // unsupported
 		notations: null, // unsupported
 		toString: toString
