@@ -6,7 +6,8 @@
 	function Stack(background) {
 		var document = background.ownerDocument,
 
-		$$ = $( background ),
+		$$   = $( background ),
+		view = $$.contents() || $$,
 
 		overlay = $('<div class="vizard-ui-overlay">', document),
 		stack   = $('<div class="vizard-ui-stack">', document),
@@ -17,7 +18,7 @@
 
 		instance = this;
 
-		$.window.resize(function() {
+		$.window.resize(function(e) {
 			var oldHeight = height,
 			    oldWidth  = width,
 			    oldOffset = offset,
@@ -30,23 +31,13 @@
 
 			newSize   = newSize   || ( oldHeight   != height );
 			newSize   = newSize   || ( oldWidth    != width );
+			if ( newSize ) { overlay.height(height).width(width); }
+
 			newOffset = newOffset || ( oldOffset.x != offset.x );
 			newOffset = newOffset || ( oldOffset.y != offset.y );
+			if ( newOffset ) { overlay.offset(offset); }
 
-			if ( newSize && newOffset ) {
-				overlay.height(height);
-				overlay.width(width);
-				overlay.offset(offset);
-				// RADAR trigger events here
-				// stack.children, overlay.children().not(stack)
-			} else if ( newSize ) {
-				overlay.height(height);
-				overlay.width(width);
-				// RADAR trigger events here
-			} else if ( newOffset ) {
-				overlay.offset(offset);
-				// RADAR trigger events here
-			}
+			stack.height( view.height() );
 		});
 
 		overlay.bind({
@@ -54,11 +45,10 @@
 				var el         = $( e.target )
 				  , top        = el.scrollTop()
 				  , left       = el.scrollLeft()
-				  , view       = background.contents()
 				  , viewHeight = view.height()
 				  , viewWidth  = view.width();
 
-				// TODO fix scroll issues
+				// TODO fix scroll issues when controls have padding
 				// if ( top + height > viewHeight ) {  }
 				// if ( left + width > viewWidth ) {  }
 
@@ -104,7 +94,7 @@
 	UI.addStyle({
 		'.vizard-ui-overlay, .vizard-ui-stack': 'position: absolute;',
 		'.vizard-ui-overlay': 'overflow: auto;',
-		'.vizard-ui-stack': 'top: 0; right: 0; bottom: 0; left: 0;'
+		'.vizard-ui-stack': 'top: 0; right: 0; left: 0;'
 	});
 
 	return UI.Stack = Stack;
