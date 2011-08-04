@@ -7,7 +7,7 @@
 		var document = background.ownerDocument,
 
 		$$   = $( background ),
-		view = $$.contents() || $$,
+		view = $$.contents(),
 
 		overlay = $('<div class="vizard-ui-overlay">', document),
 		stack   = $('<div class="vizard-ui-stack">', document),
