@@ -50,3 +50,24 @@ table {
 body { margin: 0; overflow: hidden; }
 .vizard-ui-control { cursor: pointer; border: 1px solid rgba(255, 255, 255, .2); margin: -5px -10px; padding: 4px 9px; }
 .vizard-ui-control:hover { background-color: rgba(255, 0, 0, .2); }
+
+#toolbar:hover {
+	top: 0;
+}
+#toolbar {
+	position: absolute;
+	border-bottom: 1px solid white;
+	padding: 0.25em 0;
+	width: 100%;
+	background-color: rgba(255,255,255,0.8);
+	color: black;
+	text-align: center;
+	top: -1.25em;
+}
+#toolbar ul {
+	list-style-type: none;
+	margin: 0 auto;
+}
+#toolbar li {
+	display: inline-block;
+}
