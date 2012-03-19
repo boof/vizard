@@ -1,4 +1,8 @@
 // Note: This filter only works for SCRIPT tags with known TYPE values!
+// TODO
+// add support for WebFont Loader (see https://github.com/typekit/webfontloader), or
+// add a whitelist mechanism for sources
+// eg. <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
 (function(filter) {
 
 	// script types could be evaluated
