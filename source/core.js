@@ -57,12 +57,21 @@ function Vizard( display, href, handler ) {
 				case Vizard.INTERACTIVE:
 					vizard.controls.remove();
 					vizard.controls = Vizard.fn.controls;
+
+					// parse body and generate controls
 					vizard.control( document.body );
+					// reset dirty state
 					vizard.reset();
 
-					vizard.setState( Vizard.COMPLETE );
+					// TODO wait for webfonts to be rendered...
+					// RADAR where do we get the events from?
 
-					$.window.resize();
+					// wait for the browser
+					setTimeout(function() {
+						$.window.resize();
+						vizard.setState( Vizard.COMPLETE );
+						$.window.resize();
+					}, 250);
 				break;
 
 				default: break;
