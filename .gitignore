@@ -1,2 +1,2 @@
-passenger.*
 public/js/vizard-*.js
+.vagrant

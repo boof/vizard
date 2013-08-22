@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 group :osx do
   gem 'growl'
